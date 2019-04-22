@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WeatherDataProvider } from '../../providers/weather-data/weather-data';
+import { Flashlight } from '@ionic-native/flashlight/ngx';
+import { SettingsPage } from '../settings/settings';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -10,20 +13,31 @@ export class HomePage {
 
   weatherData:any = [];
 
-  private description:string;
-  private humidity:number;
-  private temperature:number;
-  private windSpeed:number;
-  private location:string;
+  private units:boolean;
 
-  constructor(public navCtrl: NavController, private weatherProvider: WeatherDataProvider) {
+  description:string;
+  humidity:number;
+  temperature:number;
+  windSpeed:number;
+  location:string;
+
+  private cityQuery:string;
+
+
+  constructor(public navCtrl: NavController, private weatherProvider: WeatherDataProvider, private storage: Storage) {
 
   }
 
   ionViewDidLoad() {
     this.weatherProvider.getWeatherData().subscribe(data => {
       this.buildWeatherData(data);
-      //console.log(data);
+    })
+
+  }
+
+  ionViewDidEnter() {
+    this.storage.get('units').then((val) => {
+      this.units = val;
     })
   }
 
@@ -35,6 +49,13 @@ export class HomePage {
     this.location = data.name + " - " + data.sys.country;
   }
 
+  weatherDataQuery() {
+   this.weatherProvider.weatherQuery(this.cityQuery).subscribe(data => {
+     this.buildWeatherData(data);
+   })
+
+   //this.flashlight.switchOn();
+  }
 
   convertKelvinDegrees(tempKelvin:number): number {
     let KELVIN:number = 273.15;
@@ -42,7 +63,13 @@ export class HomePage {
   }
 
   convertWindSpeed(wind: number): number {
-    return wind*10;
+    return wind*3.6;
   }
+
+  pushSettingsPage() {
+    this.navCtrl.push(SettingsPage);
+  }
+
+
 
 }

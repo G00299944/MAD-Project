@@ -3,13 +3,33 @@
     <ion-title>
       Weather!
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="pushSettingsPage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="cityQuery"></ion-searchbar>
+    <button ion-button (click)="weatherDataQuery()">Search!</button>
+
+  </ion-toolbar>
+
+
 </ion-header>
+
+
+
 
 <ion-content padding>
   <ion-label>Description: {{description}}</ion-label>
   <ion-label>Humidity: {{humidity}}%</ion-label>
-  <ion-label>Temperature: {{temperature}}°</ion-label>
+
+  <ion-label *ngIf="units==true">Temperature: {{temperature}}° Celcius</ion-label>
+  <ion-label *ngIf="units==false">Temperature: {{temperature}}° Fahrenheit</ion-label>
+
   <ion-label>Wind: {{windSpeed}}km/h</ion-label>
   <ion-label>Location: {{location}}</ion-label>
+
 </ion-content>
+

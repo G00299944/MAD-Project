@@ -6,29 +6,38 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { SettingsPage } from '../pages/settings/settings';
 import { WeatherDataProvider } from '../providers/weather-data/weather-data';
 import { HttpClientModule } from '@angular/common/http';
+import { Flashlight } from '@ionic-native/flashlight/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WeatherDataProvider
+    WeatherDataProvider,
+    Geolocation,
+    Flashlight
   ]
 })
 export class AppModule {}
