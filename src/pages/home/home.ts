@@ -11,15 +11,17 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  weatherData:any = [];
+  private weatherData:any = [];
 
-  private units:boolean;
+  private units:boolean = true;
 
-  description:string;
-  humidity:number;
-  temperature:number;
-  windSpeed:number;
-  location:string;
+  private description:string;
+  private humidity:number;
+  private temperatureC:number;
+  private temperatureF:number;
+  private windSpeedMetric:number;
+  private windSpeedImperial:number;
+  private location:string;
 
   private cityQuery:string;
 
@@ -29,32 +31,28 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.weatherProvider.getWeatherData().subscribe(data => {
-      this.buildWeatherData(data);
-    })
+    this.loadUnits();
 
   }
 
   ionViewDidEnter() {
-    this.storage.get('units').then((val) => {
-      this.units = val;
-    })
+    this.loadUnits();
   }
 
   buildWeatherData(data:any) {
     this.description = data.weather[0].description;
     this.humidity = data.main.humidity;
-    this.temperature = this.convertKelvinDegrees(data.main.temp);
-    this.windSpeed = this.convertWindSpeed(data.wind.speed);
-    this.location = data.name + " - " + data.sys.country;
+    this.temperatureC = this.convertKelvinDegrees(data.main.temp);
+    this.temperatureF = this.convertKelvinFahrenheit(data.main.temp);
+    this.windSpeedMetric = this.convertWindSpeedKilometers(data.wind.speed);
+    this.windSpeedImperial = this.convertWindSpeedMiles(data.wind.speed);
+    this.location = data.name + ", " + data.sys.country;
   }
 
   weatherDataQuery() {
    this.weatherProvider.weatherQuery(this.cityQuery).subscribe(data => {
      this.buildWeatherData(data);
    })
-
-   //this.flashlight.switchOn();
   }
 
   convertKelvinDegrees(tempKelvin:number): number {
@@ -62,12 +60,26 @@ export class HomePage {
     return Math.round(tempKelvin - KELVIN);
   }
 
-  convertWindSpeed(wind: number): number {
+  convertKelvinFahrenheit(tempKelvin:number): number {
+    return (this.convertKelvinDegrees(tempKelvin)*9/5)+32;
+  }
+
+  convertWindSpeedKilometers(wind: number): number {
     return wind*3.6;
+  }
+
+  convertWindSpeedMiles(wind: number): number {
+    return wind*2.237;
   }
 
   pushSettingsPage() {
     this.navCtrl.push(SettingsPage);
+  }
+
+  loadUnits() {
+    this.storage.get('units').then((val) => {
+      this.units = val;
+    })
   }
 
 

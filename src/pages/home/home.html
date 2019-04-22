@@ -9,27 +9,33 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar [(ngModel)]="cityQuery"></ion-searchbar>
-    <button ion-button (click)="weatherDataQuery()">Search!</button>
-
-  </ion-toolbar>
-
-
 </ion-header>
 
-
-
-
 <ion-content padding>
-  <ion-label>Description: {{description}}</ion-label>
-  <ion-label>Humidity: {{humidity}}%</ion-label>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="cityQuery" placeholder="Search by city"></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="weatherDataQuery()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <ion-card *ngIf="location!=null">
+    <ion-card-header>
+      
+      <ion-card-title>{{location}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>Description: {{description}}</ion-item>
+      <ion-item>Humidity: {{humidity}}%</ion-item>
 
-  <ion-label *ngIf="units==true">Temperature: {{temperature}}° Celcius</ion-label>
-  <ion-label *ngIf="units==false">Temperature: {{temperature}}° Fahrenheit</ion-label>
+      <ion-item *ngIf="units==true">Temperature: {{temperatureC}}°C</ion-item>
+      <ion-item *ngIf="units==false">Temperature: {{temperatureF}}°F</ion-item>
 
-  <ion-label>Wind: {{windSpeed}}km/h</ion-label>
-  <ion-label>Location: {{location}}</ion-label>
-
+      <ion-item *ngIf="units==true">Wind: {{windSpeedMetric}}km/h</ion-item>
+      <ion-item *ngIf="units==false">Wind: {{windSpeedImperial}}m/h</ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
