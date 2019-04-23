@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Weather Tracking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!-- <button ion-button (click)="generateWeatherObjects()">TEST</button> -->
+  <ion-list *ngFor="let w of weatherObjects">
+    <ion-card>
+      <ion-card-header>
+        <ion-navbar>
+          <ion-card-title>{{w.location}}</ion-card-title>
+        </ion-navbar>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>Description: {{w.description}}</ion-item>
+
+        <ion-item *ngIf="tempUnits==true">Temperature: {{w.temperatureC | number: '0.0-1'}}°C</ion-item>
+        <ion-item *ngIf="tempUnits==false">Temperature: {{w.temperatureF | number: '0.0-1'}}°F</ion-item>
+
+        <ion-item>Humidity: {{w.humidity}}%</ion-item>
+
+        <ion-item *ngIf="windUnits==true">Wind: {{w.windSpeedMetric | number: '0.0-1'}}km/h</ion-item>
+        <ion-item *ngIf="windUnits==false">Wind: {{w.windSpeedImperial | number: '0.0-1'}}mph</ion-item>
+      </ion-card-content>
+    </ion-card>
+</ion-list>
+
+</ion-content>

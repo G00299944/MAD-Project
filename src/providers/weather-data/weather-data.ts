@@ -23,10 +23,7 @@ export class WeatherDataProvider {
   }
 
   weatherQuery(cityQuery:string):Observable<any> {
-    console.log("http://api.openweathermap.org/data/2.5/weather?q=" + cityQuery + "&appid=" + this.API_KEY);
     return this.http.get("http://api.openweathermap.org/data/2.5/weather?q=" + cityQuery + "&appid=" + this.API_KEY);
   }
-
-
 
 }

@@ -17,7 +17,7 @@ import { Storage } from '@ionic/storage';
 export class SettingsPage {
 
 
-  private tempUnits: boolean = true; // true=metric, false=imperial
+  private tempUnits: boolean; // true=metric, false=imperial
   private windUnits: boolean = true; // true=metric, false=imperial
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
@@ -25,13 +25,24 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+
     
     this.storage.get('tempUnits').then((val) => {
-      this.tempUnits = val;
+      if(val!=null) {
+        this.tempUnits = val;
+      }
+      else {
+        this.tempUnits = true;
+      }
     })
 
     this.storage.get('windUnits').then((val) => {
-      this.windUnits = val;
+      if(val!=null) {
+        this.windUnits = val;
+      }
+      else {
+        this.windUnits = true;
+      }
     })
   }
 

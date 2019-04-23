@@ -9,15 +9,16 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { WeatherDataProvider } from '../providers/weather-data/weather-data';
 import { HttpClientModule } from '@angular/common/http';
-import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { WeatherTrackingPage } from '../pages/weather-tracking/weather-tracking';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    SettingsPage
+    SettingsPage,
+    WeatherTrackingPage
   ],
   imports: [
     BrowserModule,
@@ -29,15 +30,15 @@ import { IonicStorageModule } from '@ionic/storage';
   entryComponents: [
     MyApp,
     HomePage,
-    SettingsPage
+    SettingsPage,
+    WeatherTrackingPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WeatherDataProvider,
-    Geolocation,
-    Flashlight
+    Geolocation
   ]
 })
 export class AppModule {}

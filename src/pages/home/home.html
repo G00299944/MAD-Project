@@ -1,7 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Weather!
+      <ion-buttons left>
+          <button ion-button icon-only (click)="pushWeatherTrackingPage()">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title text-center>
+      A Weather App
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="pushSettingsPage()">
@@ -15,18 +20,18 @@
   <ion-toolbar>
     <ion-searchbar [(ngModel)]="cityQuery" placeholder="Search by city"></ion-searchbar>
     <ion-buttons end>
-      <button ion-button icon-only (click)="weatherDataQuery()">
+      <button ion-button icon-only (click)="weatherDataQuery(this.cityQuery)">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
   
-  <ion-card *ngIf="location!=null">
+  <ion-card *ngIf="weatherObj!=null">
     <ion-card-header>
       <ion-navbar>
-          <ion-card-title>{{location}}</ion-card-title>
+          <ion-card-title>{{weatherObj.location}}</ion-card-title>
           <ion-buttons end>
-              <button ion-button icon-only (click)="pushSettingsPage()">
+              <button ion-button icon-only (click)="addWeatherList(weatherObj.location)">
                 <ion-icon name="add"></ion-icon>
               </button>
           </ion-buttons>
@@ -34,16 +39,19 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item>Description: {{description}}</ion-item>
+      <ion-item>Description: {{weatherObj.description}}</ion-item>
 
-      <ion-item *ngIf="tempUnits==true">Temperature: {{temperatureC | number: '0.0-1'}}°C</ion-item>
-      <ion-item *ngIf="tempUnits==false">Temperature: {{temperatureF | number: '0.0-1'}}°F</ion-item>
+      <ion-item *ngIf="tempUnits==true">Temperature: {{weatherObj.temperatureC | number: '0.0-1'}}°C</ion-item>
+      <ion-item *ngIf="tempUnits==false">Temperature: {{weatherObj.temperatureF | number: '0.0-1'}}°F</ion-item>
 
-      <ion-item>Humidity: {{humidity}}%</ion-item>
+      <ion-item>Humidity: {{weatherObj.humidity}}%</ion-item>
 
-      <ion-item *ngIf="windUnits==true">Wind: {{windSpeedMetric | number: '0.0-1'}}km/h</ion-item>
-      <ion-item *ngIf="windUnits==false">Wind: {{windSpeedImperial | number: '0.0-1'}}m/h</ion-item>
+      <ion-item *ngIf="windUnits==true">Wind: {{weatherObj.windSpeedMetric | number: '0.0-1'}}km/h</ion-item>
+      <ion-item *ngIf="windUnits==false">Wind: {{weatherObj.windSpeedImperial | number: '0.0-1'}}m/h</ion-item>
     </ion-card-content>
   </ion-card>
+
+
+  <button ion-button (click)="DEBUG_CLEAR_STORAGE()">DEBUG_CLEAR_STORAGE</button>
 </ion-content>
 
