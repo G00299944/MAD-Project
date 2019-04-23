@@ -17,22 +17,30 @@ import { Storage } from '@ionic/storage';
 export class SettingsPage {
 
 
-  private units: boolean = true; // true=metric, false=imperial
+  private tempUnits: boolean = true; // true=metric, false=imperial
+  private windUnits: boolean = true; // true=metric, false=imperial
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+    
+    this.storage.get('tempUnits').then((val) => {
+      this.tempUnits = val;
+    })
 
-    this.storage.get('units').then((val) => {
-      this.units = val;
+    this.storage.get('windUnits').then((val) => {
+      this.windUnits = val;
     })
   }
 
-  toggleUnits() {
-    this.units = !this.units;
-    this.storage.set('units', this.units);
+  toggleTempUnits() {
+    this.storage.set('tempUnits', this.tempUnits);
+  }
+
+  toggleWindUnits() {
+    this.storage.set('windUnits', this.windUnits);
   }
 
 }

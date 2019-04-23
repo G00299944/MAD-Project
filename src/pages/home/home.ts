@@ -13,7 +13,9 @@ export class HomePage {
 
   private weatherData:any = [];
 
-  private units:boolean = true;
+  private tempUnits:boolean = true;
+  private windUnits:boolean = true;
+
 
   private description:string;
   private humidity:number;
@@ -23,7 +25,7 @@ export class HomePage {
   private windSpeedImperial:number;
   private location:string;
 
-  private cityQuery:string;
+  private cityQuery:string = "galway";
 
 
   constructor(public navCtrl: NavController, private weatherProvider: WeatherDataProvider, private storage: Storage) {
@@ -77,8 +79,12 @@ export class HomePage {
   }
 
   loadUnits() {
-    this.storage.get('units').then((val) => {
-      this.units = val;
+    this.storage.get('tempUnits').then((val) => {
+      this.tempUnits = val;
+    })
+
+    this.storage.get('windUnits').then((val) => {
+      this.windUnits = val;
     })
   }
 

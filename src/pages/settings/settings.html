@@ -11,8 +11,15 @@
 </ion-header>
 
 <ion-content padding>
-  <button (click)="toggleUnits()" ion-button>CLICK!</button>
+  <ion-item>
+    <ion-label *ngIf="tempUnits==true">Temperature Units: °Celsius</ion-label>
+    <ion-label *ngIf="tempUnits==false">Temperature Units: °Fahrenheit</ion-label>
+    <ion-toggle [(ngModel)]="tempUnits" (ionChange)="toggleTempUnits()"></ion-toggle>    
+  </ion-item> 
 
-  <p *ngIf="this.units==true">METRIC</p>
-  <p *ngIf="this.units==false">IMPERIAL</p>
+  <ion-item>
+      <ion-label *ngIf="windUnits==true">Wind Speed Units: km/h</ion-label>
+      <ion-label *ngIf="windUnits==false">Wind Speed Units: mph</ion-label>
+      <ion-toggle [(ngModel)]="windUnits" (ionChange)="toggleWindUnits()"></ion-toggle>    
+  </ion-item> 
 </ion-content>

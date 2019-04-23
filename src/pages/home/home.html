@@ -23,18 +23,26 @@
   
   <ion-card *ngIf="location!=null">
     <ion-card-header>
-      
-      <ion-card-title>{{location}}</ion-card-title>
+      <ion-navbar>
+          <ion-card-title>{{location}}</ion-card-title>
+          <ion-buttons end>
+              <button ion-button icon-only (click)="pushSettingsPage()">
+                <ion-icon name="add"></ion-icon>
+              </button>
+          </ion-buttons>
+      </ion-navbar>
     </ion-card-header>
+
     <ion-card-content>
       <ion-item>Description: {{description}}</ion-item>
+
+      <ion-item *ngIf="tempUnits==true">Temperature: {{temperatureC | number: '0.0-1'}}°C</ion-item>
+      <ion-item *ngIf="tempUnits==false">Temperature: {{temperatureF | number: '0.0-1'}}°F</ion-item>
+
       <ion-item>Humidity: {{humidity}}%</ion-item>
 
-      <ion-item *ngIf="units==true">Temperature: {{temperatureC}}°C</ion-item>
-      <ion-item *ngIf="units==false">Temperature: {{temperatureF}}°F</ion-item>
-
-      <ion-item *ngIf="units==true">Wind: {{windSpeedMetric}}km/h</ion-item>
-      <ion-item *ngIf="units==false">Wind: {{windSpeedImperial}}m/h</ion-item>
+      <ion-item *ngIf="windUnits==true">Wind: {{windSpeedMetric | number: '0.0-1'}}km/h</ion-item>
+      <ion-item *ngIf="windUnits==false">Wind: {{windSpeedImperial | number: '0.0-1'}}m/h</ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>
