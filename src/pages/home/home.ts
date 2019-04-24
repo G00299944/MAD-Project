@@ -31,7 +31,7 @@ export class HomePage {
   // Methods ====================================================================================================
   // ion load methods ==================================================
   ionViewDidLoad() {
-    this.loadGPS();
+    //this.loadGPS();
   }
 
   ionViewDidEnter() {
@@ -55,7 +55,7 @@ export class HomePage {
   weatherDataGPS(lon:number, lat:number): any { // takes a lon & lat and makes an API call 
     this.weatherProvider.getWeatherDataGPS(lon, lat).subscribe(data => {
       this.buildWeatherData(data);
-      console.log(data);
+      //console.log(data);
     })
   }
 
@@ -115,8 +115,8 @@ export class HomePage {
   // alert methods ==================================================
   validCityAlert(city:string) {
     let alert=this.alert.create({
-      title:"Weather Tracking",
-      subTitle: "Success: " + city + " has been added to weather tracking.",
+      title:"Success",
+      subTitle: city + " has been added to your weather list.",
       buttons:['ok']
 
     });
@@ -125,8 +125,8 @@ export class HomePage {
 
   invalidCityAlert(city:string) {
     let alert=this.alert.create({
-      title:"Weather Tracking",
-      subTitle: "Error: " + city + " is already being tracked.",
+      title:"Error",
+      subTitle: city + " is already on your weather list.",
       buttons:['ok']
 
     });
@@ -135,8 +135,8 @@ export class HomePage {
 
   invalidQueryAlert(city:string) {
     let alert=this.alert.create({
-      title:"Weather Tracking",
-      subTitle: "Error: " + " could not find " + city,
+      title:"Error",
+      subTitle: "Could not find " + city + ".",
       buttons:['ok']
 
     });

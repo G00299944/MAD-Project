@@ -1,14 +1,12 @@
 <ion-header>
   <ion-navbar>
-      <ion-buttons left>
-          <button ion-button icon-only (click)="pushWeatherTrackingPage()">
-            <ion-icon name="partly-sunny"></ion-icon>
-          </button>
-        </ion-buttons>
-    <ion-title text-center>
+    <ion-title >
       A Weather App
     </ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (click)="pushWeatherTrackingPage()">
+        <ion-icon name="partly-sunny"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="pushSettingsPage()">
         <ion-icon name="settings"></ion-icon>
       </button>
@@ -17,6 +15,7 @@
 </ion-header>
 
 <ion-content padding>
+  
   <ion-toolbar>
     <ion-searchbar [(ngModel)]="cityQuery" placeholder="Search by city"></ion-searchbar>
     <ion-buttons end>
@@ -25,7 +24,7 @@
       </button>
     </ion-buttons>
   </ion-toolbar>
-  
+
   <ion-card *ngIf="weatherObj!=null">
     <ion-card-header>
       <ion-navbar>
@@ -39,8 +38,6 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item>Description: {{weatherObj.description}}</ion-item>
-
       <ion-item *ngIf="tempUnits==true">Temperature: {{weatherObj.temperatureC | number: '0.0-1'}}°C</ion-item>
       <ion-item *ngIf="tempUnits==false">Temperature: {{weatherObj.temperatureF | number: '0.0-1'}}°F</ion-item>
 
@@ -48,8 +45,21 @@
 
       <ion-item *ngIf="windUnits==true">Wind: {{weatherObj.windSpeedMetric | number: '0.0-1'}}km/h</ion-item>
       <ion-item *ngIf="windUnits==false">Wind: {{weatherObj.windSpeedImperial | number: '0.0-1'}}m/h</ion-item>
+
+      <ion-item>{{weatherObj.description}}</ion-item>
     </ion-card-content>
   </ion-card>
+
+  <!-- https://stackoverflow.com/a/45359708 -->
+  <ion-footer> 
+    <ion-grid>
+      <ion-row no-padding no-margin>
+        <ion-col col-12 no-padding>
+            <button ion-button (click)="loadGPS()" outline block>weather at my location</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
 
   <!-- <button ion-button (click)="DEBUG_CLEAR_STORAGE()">DEBUG_CLEAR_STORAGE</button> -->
 </ion-content>

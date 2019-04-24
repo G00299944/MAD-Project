@@ -7,19 +7,19 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header>
-      <ion-label>Units Settings:</ion-label>
+      <ion-label>Units:</ion-label>
     </ion-card-header>
 
     <ion-card-content>
       <ion-item>
-        <ion-label *ngIf="tempUnits==true">Temperature: °Celsius</ion-label>
-        <ion-label *ngIf="tempUnits==false">Temperature: °Fahrenheit</ion-label>
+        <ion-label *ngIf="tempUnits==true">°Celsius</ion-label>
+        <ion-label *ngIf="tempUnits==false">°Fahrenheit</ion-label>
         <ion-toggle [(ngModel)]="tempUnits" (ionChange)="toggleTempUnits()"></ion-toggle>
       </ion-item> 
       
       <ion-item>
-        <ion-label *ngIf="windUnits==true">Wind Speed: km/h</ion-label>
-        <ion-label *ngIf="windUnits==false">Wind Speed: mph</ion-label>
+        <ion-label *ngIf="windUnits==true">kilometers </ion-label>
+        <ion-label *ngIf="windUnits==false">miles</ion-label>
         <ion-toggle [(ngModel)]="windUnits" (ionChange)="toggleWindUnits()"></ion-toggle>    
       </ion-item> 
     </ion-card-content>
