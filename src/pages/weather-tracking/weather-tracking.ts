@@ -53,7 +53,7 @@ export class WeatherTrackingPage {
   }
 
   weatherDataQuery(cityName:string): any {
-    this.weatherProvider.weatherQuery(cityName).subscribe(data => {
+    this.weatherProvider.getWeatherDataCity(cityName).subscribe(data => {
       this.buildWeatherData(data);
     })
   }

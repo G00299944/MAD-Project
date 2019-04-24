@@ -5,6 +5,7 @@ import { SettingsPage } from '../settings/settings';
 import { Storage } from '@ionic/storage';
 import { WeatherTrackingPage } from '../weather-tracking/weather-tracking';
 import { AlertController } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-home',
@@ -18,17 +19,24 @@ export class HomePage {
   private windUnits:boolean = true;
   private cityQuery:string;
   private weatherList:string[];
+  private lon:number;
+  private lat:number;
 
 
-  constructor(public navCtrl: NavController, private weatherProvider: WeatherDataProvider, private storage: Storage, private alert: AlertController) {
+  constructor(public navCtrl: NavController, private weatherProvider: WeatherDataProvider, 
+    private storage: Storage, private alert: AlertController, private geolocation: Geolocation) {
 
   }
 
   // Methods ====================================================================================================
+ 
+
 
   // ion load methods ==================================================
   ionViewDidLoad() {
-    this.loadUnits();
+    //this.loadUnits();
+    this.loadGPS();
+
   }
 
   ionViewDidEnter() {
@@ -43,9 +51,16 @@ export class HomePage {
   }
 
   weatherDataQuery(cityName:string): any{
-   this.weatherProvider.weatherQuery(cityName).subscribe(data => {
+   this.weatherProvider.getWeatherDataCity(cityName).subscribe(data => {
      this.buildWeatherData(data);},
      error => this.invalidQueryAlert(cityName));
+  }
+
+  weatherDataGPS(lon:number, lat:number): any {
+    this.weatherProvider.getWeatherDataGPS(lon, lat).subscribe(data => {
+      this.buildWeatherData(data);
+      console.log(data);
+    })
   }
 
   addWeatherList(city:string) {
@@ -78,6 +93,17 @@ export class HomePage {
       }
       console.log("load: ", this.weatherList);
     })
+  }
+
+  loadGPS() {
+    this.geolocation.getCurrentPosition().then((response) => {
+      this.lon = response.coords.longitude;
+      this.lat = response.coords.latitude;
+      console.log("lon: " + this.lon + "lat: " + this.lat);
+      this.weatherDataGPS(this.lon, this.lat);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   // nav methods ==================================================

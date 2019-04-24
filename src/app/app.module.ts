@@ -9,7 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { WeatherDataProvider } from '../providers/weather-data/weather-data';
 import { HttpClientModule } from '@angular/common/http';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
 import { WeatherTrackingPage } from '../pages/weather-tracking/weather-tracking';
 

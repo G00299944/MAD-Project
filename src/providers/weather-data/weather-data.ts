@@ -22,8 +22,13 @@ export class WeatherDataProvider {
     return this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=53.274395&lon=-9.049201&appid=" + this.API_KEY);
   }
 
-  weatherQuery(cityQuery:string):Observable<any> {
+  getWeatherDataCity(cityQuery:string):Observable<any> {
     return this.http.get("http://api.openweathermap.org/data/2.5/weather?q=" + cityQuery + "&appid=" + this.API_KEY);
+  }
+
+  getWeatherDataGPS(lon:number, lat:number):Observable<any> {
+    //console.log("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + this.API_KEY);
+    return this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + this.API_KEY);
   }
 
 }
