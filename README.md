@@ -1,5 +1,5 @@
 # MAD-Project - A Weather App
-A simple, web-based weather application built using the ionic framework. The app enables the user to search for current weather data by city or with gps coordinates.
+A simple, web-based weather application built using the ionic framework. The app enables the user to search for current weather data by city or with GPS coordinates.
 
 
 # Motivation
@@ -9,7 +9,7 @@ for this assignment because I believe that a simple idea, executed well can effe
 # Application Features
 My applicaion enables users to: 
   - Search for the current weather data from over 200,000 cities.
-  - Get the current weather at their locaion using gps coordinates.
+  - Get the current weather at their locaion using GPS coordinates.
   - See temperature, wind speed, humidity & more for a given search.
   - Configure units of measurement, i.e, Imperial/Metric.
   - Curate a list of locations to track weather for.
@@ -38,7 +38,7 @@ $ ionic serve --lab
 ? Looks like a fresh checkout! No ./node_modules directory found. Would you like to install project dependencies? (Y/n)
 $ y
 ```
-The application should then launch in your default web browser.
+After some time, the application should launch in your default web browser.
 
 # API Reference
 This application uses data from the [OpenWeatherMap] API.
