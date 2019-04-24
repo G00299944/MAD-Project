@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { WeatherDataProvider } from '../../providers/weather-data/weather-data';
+import { AlertController } from 'ionic-angular';
+
 
 @IonicPage()
 @Component({
@@ -14,7 +16,20 @@ export class WeatherTrackingPage {
   private tempUnits:boolean = true;
   private windUnits:boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherDataProvider, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherDataProvider, private storage: Storage, private alert: AlertController) {
+  }
+
+  removeWeatherList(city:string) {
+    for (let i:number = 0; i < this.weatherList.length; i++) {
+      if(this.weatherList[i].localeCompare(city) == 0) {
+        var deletedCity = this.weatherList.splice(i,1);
+        this.weatherObjects.splice(i,1); // done so it removes from page without needing to be reloaded
+        //console.log(deletedCity);
+        //console.log(this.weatherList);
+        this.storage.set('weatherList', this.weatherList);
+        this.validCityAlert(city);
+      }
+    }
   }
 
   ionViewDidLoad() {
@@ -72,6 +87,17 @@ export class WeatherTrackingPage {
         this.windUnits = true;
       }
     })
+  }
+
+  // alert methods ==================================================
+  validCityAlert(city:string) {
+    let alert=this.alert.create({
+      title:"Weather Tracking",
+      subTitle: "Success: " + city + " has been removed from weather tracking.",
+      buttons:['ok']
+
+    });
+    alert.present();
   }
 
 }

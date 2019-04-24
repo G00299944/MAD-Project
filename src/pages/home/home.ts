@@ -24,16 +24,6 @@ export class HomePage {
 
   }
 
-  weatherTrackingAlert(city:string) {
-    let alert=this.alert.create({
-      title:"Weather List Updated!",
-      subTitle: "Added " + city + " to your weather list.",
-      buttons:['ok']
-
-    });
-    alert.present();
-  }
-
   // Methods ====================================================================================================
 
   // ion load methods ==================================================
@@ -54,14 +44,29 @@ export class HomePage {
 
   weatherDataQuery(cityName:string): any{
    this.weatherProvider.weatherQuery(cityName).subscribe(data => {
-     this.buildWeatherData(data);
-   })
+     this.buildWeatherData(data);},
+     error => this.invalidQueryAlert(cityName));
   }
 
   addWeatherList(city:string) {
-    this.weatherList.push(city);
-    this.storage.set('weatherList', this.weatherList);
-    this.weatherTrackingAlert(city);
+    let isTracked:boolean = false;
+
+    for (let i:number = 0; i < this.weatherList.length; i++) {
+      if (this.weatherList[i].localeCompare(city) == 0) {
+        isTracked = true;
+        console.log(isTracked);
+      }
+    }
+
+    if (!isTracked) {
+      this.weatherList.push(city);
+      this.storage.set('weatherList', this.weatherList);
+      this.validCityAlert(city);
+    }
+    else {
+      this.invalidCityAlert(city);
+    }
+
   }
 
   loadWeatherList() {
@@ -82,6 +87,37 @@ export class HomePage {
 
   pushWeatherTrackingPage() {
     this.navCtrl.push(WeatherTrackingPage);
+  }
+
+  // alert methods ==================================================
+  validCityAlert(city:string) {
+    let alert=this.alert.create({
+      title:"Weather Tracking",
+      subTitle: "Success: " + city + " has been added to weather tracking.",
+      buttons:['ok']
+
+    });
+    alert.present();
+  }
+
+  invalidCityAlert(city:string) {
+    let alert=this.alert.create({
+      title:"Weather Tracking",
+      subTitle: "Error: " + city + " is already being tracked.",
+      buttons:['ok']
+
+    });
+    alert.present();
+  }
+
+  invalidQueryAlert(city:string) {
+    let alert=this.alert.create({
+      title:"Weather Tracking",
+      subTitle: "Error: " + " could not find " + city,
+      buttons:['ok']
+
+    });
+    alert.present();
   }
 
 

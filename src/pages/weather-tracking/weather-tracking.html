@@ -5,13 +5,16 @@
 </ion-header>
 
 <ion-content padding>
-
-  <!-- <button ion-button (click)="generateWeatherObjects()">TEST</button> -->
-  <ion-list *ngFor="let w of weatherObjects">
-    <ion-card>
+  <ion-list >
+    <ion-card *ngFor="let w of weatherObjects">
       <ion-card-header>
         <ion-navbar>
           <ion-card-title>{{w.location}}</ion-card-title>
+          <ion-buttons end>
+            <button ion-button icon-only (click)="removeWeatherList(w.location)">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+        </ion-buttons>
         </ion-navbar>
       </ion-card-header>
       <ion-card-content>
