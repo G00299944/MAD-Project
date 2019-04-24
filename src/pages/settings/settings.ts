@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-settings',
@@ -23,11 +16,10 @@ export class SettingsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-
-    
-    this.storage.get('tempUnits').then((val) => {
+  // Methods ====================================================================================================
+  // ion load methods ==================================================
+  ionViewDidLoad() { 
+    this.storage.get('tempUnits').then((val) => { // load temperature units from storage || default to metric
       if(val!=null) {
         this.tempUnits = val;
       }
@@ -36,7 +28,7 @@ export class SettingsPage {
       }
     })
 
-    this.storage.get('windUnits').then((val) => {
+    this.storage.get('windUnits').then((val) => { // load wind speed units from storage || default to metric
       if(val!=null) {
         this.windUnits = val;
       }
@@ -46,12 +38,12 @@ export class SettingsPage {
     })
   }
 
-  toggleTempUnits() {
-    this.storage.set('tempUnits', this.tempUnits);
+  toggleTempUnits() { // when view component is toggled, toggle boolean value
+    this.storage.set('tempUnits', this.tempUnits); // save setting to local storage
   }
 
-  toggleWindUnits() {
-    this.storage.set('windUnits', this.windUnits);
+  toggleWindUnits() { // when view component is toggled, toggle boolean value
+    this.storage.set('windUnits', this.windUnits); // save setting to local storage
   }
 
 }

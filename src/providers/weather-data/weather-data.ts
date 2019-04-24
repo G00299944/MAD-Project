@@ -3,12 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the WeatherDataProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class WeatherDataProvider {
 
@@ -27,7 +21,6 @@ export class WeatherDataProvider {
   }
 
   getWeatherDataGPS(lon:number, lat:number):Observable<any> {
-    //console.log("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + this.API_KEY);
     return this.http.get("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + this.API_KEY);
   }
 

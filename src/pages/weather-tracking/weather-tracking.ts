@@ -11,29 +11,21 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'weather-tracking.html',
 })
 export class WeatherTrackingPage {
+
+  // Member Variables
   private weatherList:string[] = [];
   private weatherObjects:any[] = [];
   private tempUnits:boolean = true;
   private windUnits:boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherDataProvider, private storage: Storage, private alert: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherDataProvider, 
+    private storage: Storage, private alert: AlertController) {
   }
 
-  removeWeatherList(city:string) {
-    for (let i:number = 0; i < this.weatherList.length; i++) {
-      if(this.weatherList[i].localeCompare(city) == 0) {
-        var deletedCity = this.weatherList.splice(i,1);
-        this.weatherObjects.splice(i,1); // done so it removes from page without needing to be reloaded
-        //console.log(deletedCity);
-        //console.log(this.weatherList);
-        this.storage.set('weatherList', this.weatherList);
-        this.validCityAlert(city);
-      }
-    }
-  }
+  // Methods ====================================================================================================
 
+  // ion load methods ==================================================
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WeatherTrackingPage');
     this.loadWeatherList();
     this.loadUnits();
   }
@@ -42,7 +34,9 @@ export class WeatherTrackingPage {
     this.generateWeatherObjects();
   }
 
-  loadWeatherList() {
+
+  // weather data methods ==================================================
+  loadWeatherList() { // reads in cities array from local storage
     this.weatherList = [];
 
     this.storage.get('weatherList').then((val) => {
@@ -52,24 +46,36 @@ export class WeatherTrackingPage {
     })
   }
 
-  weatherDataQuery(cityName:string): any {
+  weatherDataQuery(cityName:string): any { // takes a string then makes an API call with given cityname
     this.weatherProvider.getWeatherDataCity(cityName).subscribe(data => {
       this.buildWeatherData(data);
     })
   }
 
-  buildWeatherData(data:any) {
+  buildWeatherData(data:any) { // takes in JSON data object and instantiates a new Weather object
     let w: Weather = new Weather(data);
     this.weatherObjects.push(w);
   }
 
-  generateWeatherObjects() {
+  generateWeatherObjects() { // for each city in weatherList array: make an API call 
     for (let i:number = 0; i < this.weatherList.length; i++) {
       this.weatherDataQuery(this.weatherList[i]);
     }
   }
 
-  loadUnits() {
+  removeWeatherList(city:string) { // takes a string and attempts to remove it from tracked cities array (weatherList)
+    for (let i:number = 0; i < this.weatherList.length; i++) {
+      if(this.weatherList[i].localeCompare(city) == 0) { 
+        this.weatherList.splice(i,1); // remove city from array of strings
+        this.weatherObjects.splice(i,1); // remove city from array of Weather objects
+        this.storage.set('weatherList', this.weatherList); // re-save weatherList
+        //this.validCityAlert(city);
+      }
+    }
+  }
+
+  // misc. methods ==================================================
+  loadUnits() { // same as in home.ts
     this.storage.get('tempUnits').then((val) => {
       if(val!=null) {
         this.tempUnits = val;

@@ -7,11 +7,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
+import { WeatherTrackingPage } from '../pages/weather-tracking/weather-tracking';
+
 import { WeatherDataProvider } from '../providers/weather-data/weather-data';
+
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
-import { WeatherTrackingPage } from '../pages/weather-tracking/weather-tracking';
 
 @NgModule({
   declarations: [
