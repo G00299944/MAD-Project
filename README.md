@@ -4,7 +4,7 @@ A simple, web-based weather application built using the ionic framework. The app
 
 # Motivation
 This project is my submission for a Mobile App Development assignment. The assignment constitutes 60% of my grade in this module. I have chosen to develope a weather app 
-for this assignment because I believe that a simple idea, executed well can effectively show the techniques and methods better than a more complicated idea executed poorly. Initially, I had planned to build an app using the open NASA APIs. This proved to be beyond my abilities in terms of non-computer science skills. Intead, using the OpenWeatherMap API I have built a tool that is simple and hopefully useful.
+for this assignment because I believe that a simple idea, executed well can effectively show the techniques and methods better than a more complicated idea executed poorly. Initially, I had planned to build an app using the open NASA APIs, this proved to be beyond my abilities in terms of non-computer science skills. Intead, using the OpenWeatherMap API I have built a tool that is simple and hopefully useful.
 
 # Application Features
 My applicaion enables users to: 
@@ -21,7 +21,7 @@ This application was built using the following technologies:
 * [Node.js] - Cross-platform JavaScript run-time environment.
 * [npm] - Package manager for the JavaScript programming language.
 * [Git] - Distributed version-control system.
-* [Visual Studio Code] - Code editor redefined and optimized for building and debugging modern web and cloud applications
+* [Visual Studio Code] - Code editor redefined and optimized for building and debugging modern web and cloud applications.
 
 [Angular]: <https://angular.io/>
 [Ionic]: <https://ionicframework.com/>
@@ -31,7 +31,7 @@ This application was built using the following technologies:
 [Visual Studio Code]: <https://code.visualstudio.com/>
 
 # Installation
-After cloning or downloading the zip archive from this Github page:
+After cloning or downloading the zip archive from this Github repository:
 ```sh
 $ cd MAD-Project-master
 $ ionic serve --lab
